@@ -18,12 +18,12 @@ export class EquipmentComponent implements OnInit {
     {name:'Satellite', mass: 1200},
     {name:'R2 Unit', mass: 32}
   ];
-  equipmentBeingEdited: object = null;
+
   cargoHold: object[] = [];
   cargoMass: number = 0;
   maximumAllowedMass: number = 2000;
   maxItems: number = 10;
-  changeColor: boolean = true;
+  changeColor: boolean = false;
 
   constructor() { }
 
@@ -31,19 +31,21 @@ export class EquipmentComponent implements OnInit {
   }
 
   addItem(item: object): boolean {
-    this.cargoHold.push(item);
-    this.cargoMass += item['mass'];
-    this.changeColor = false;
-    return this.maximumAllowedMass - this.cargoMass <= 200;
+    if (!this.containsObject(item)){
+      this.cargoHold.push(item);
+      this.cargoMass += item['mass'];
+      this.changeColor = false;
+      return this.maximumAllowedMass - this.cargoMass <= 200;
+    }
   }
 
   containsObject(obj: object): boolean {
     for (let i = 0; i < this.cargoHold.length; i++) {
       if (this.cargoHold[i] === obj) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
 }

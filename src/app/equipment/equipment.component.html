@@ -1,18 +1,16 @@
-<div class="displayBox">
+<div class="display">
   <h3>Equipment</h3>
-  <ol [class.ol-style]="changeColor">
+  <ol>
       <li *ngFor="let item of equipment">
-          <button [class.gold]='containsObject(item)' [class.active]="item.mass+cargoMass<=maximumAllowedMass && cargoHold.length < maxItems" [disabled]="item.mass+cargoMass>maximumAllowedMass || cargoHold.length >= maxItems" (click)="nearCapacity = addItem(item)">
+          <button [class.gold]="item.mass+cargoMass<=maximumAllowedMass && cargoHold.length < maxItems" [disabled]="item.mass+cargoMass>maximumAllowedMass || cargoHold.length >= maxItems" (click)="nearCapacity = addItem(item)">
               Add to Cargo Hold
           </button>
           {{item.name}}, {{item.mass}} kg
       </li>
   </ol>
 </div>
-
 <hr>
-
-<div class = "displayBox">
+<div class = "display">
   <h3>Cargo Hold: {{cargoHold.length}}/{{maxItems}} Spots Filled</h3>
   <ol>
       <li *ngFor="let equipment of cargoHold">{{equipment.name}}</li>

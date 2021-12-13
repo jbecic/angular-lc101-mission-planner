@@ -5,14 +5,13 @@
 .nearMaxMass {
     color:red;
     font-style: italic;
-    font-weight: bold;
 }
 
 h3 {
     text-align: center;
 }
 
-.displayBox {
+.display {
     height: 275px;
     width: auto;
 }
