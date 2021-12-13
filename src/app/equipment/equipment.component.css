@@ -1,0 +1,23 @@
+.gold {
+    background: gold;
+}
+
+.nearMaxMass {
+    color:red;
+    font-style: italic;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+}
+
+.displayBox {
+    height: 275px;
+    width: auto;
+}
+
+button {
+    margin: 2px;
+    cursor: pointer;
+}

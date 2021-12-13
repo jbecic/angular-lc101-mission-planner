@@ -7,12 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrewComponent implements OnInit {
 
-  crew: object[] = [
-    {name: "Eileen Collins", firstMission: false},
-    {name: "Mae Jemison", firstMission: false},
-    {name: "Ellen Ochoa", firstMission: true}
+  candidates: object[] = [
+    {name: "Sally Ride", photo: 'https://handlers.education.launchcode.org/static/images/sally-ride.jpg'},
+    {name: "Mae Jemison", photo: 'https://handlers.education.launchcode.org/static/images/mae-jemison.jpg'},
+    {name: "Ellen Ochoa", photo: 'https://handlers.education.launchcode.org/static/images/ellen-ochoa.jpg'},
+    {name: "Frederick Gregory", photo: 'https://handlers.education.launchcode.org/static/images/frederick-gregory.jpg'},
+    {name: "Guion Bluford", photo: 'https://handlers.education.launchcode.org/static/images/guion-bluford.jpg'},
+    {name: "Kjell Lindgren", photo: 'https://handlers.education.launchcode.org/static/images/kjell-lindgren.jpg'},
+    {name: "Jeanette Epps", photo: 'https://handlers.education.launchcode.org/static/images/jeanette-epps.jpg'}
   ];
-  memberBeingEdited: object = null;
+  inCrew: boolean = false;
+  crew: object[] = [];
 
 
   constructor() { }
@@ -20,26 +25,19 @@ export class CrewComponent implements OnInit {
   ngOnInit() {
   }
 
-  add(memberName: string, isFirst: boolean) {
-    const obj = {name: memberName, firstMission: isFirst};
-    let crewArray = [];
-    for (let i = 0; i < this.crew.length; i++) {
-      crewArray.push(this.crew[i]['name'])
+  addCrewMember(member: object) {
+    if (this.crew.includes(member)) {
+      this.inCrew = true;
+    } else {
+      this.inCrew = false;
     }
-    if(!crewArray.includes(obj.name)) {
-      this.crew.push(obj);
+    if (this.inCrew) {
+      const index = this.crew.indexOf(member);
+      this.crew.splice(index, 1);
+    } else if (!this.inCrew && this.crew.length < 3) {
+      this.crew.push(member);
     }
   }
-  remove(member: object) {
-    let index = this.crew.indexOf(member);
-    this.crew.splice(index, 1);
-  }
-  edit(member: object) {
-    this.memberBeingEdited = member;
-  }
-  save(name: string, member: object) {
-    member['name'] = name;
-    this.memberBeingEdited = null;
-  }
+  
 
 }

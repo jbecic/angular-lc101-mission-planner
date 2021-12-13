@@ -1,15 +1,23 @@
-<h3>Equipment</h3>
-<ul>
-  <li *ngFor = 'let equi of equipment'>
-    <span *ngIf='equipmentBeingEdited !== equi; else elseBlock'>
-      <span (click)="edit(equi)" class="editable-text">{{equi}} </span>
-      <button (click)='remove(equi)'>remove</button>
-    </span>
-    <ng-template #elseBlock>
-      <input #updatedEquipment (keyup.enter)='save(updatedEquipment.value, equi)' value='{{equi}}'/>
-      <button (click)='save(updatedEquipment.value, equi)'>save</button>
-    </ng-template>
-  </li>
-</ul>
-<input #name type="text"/>
-<button (click)="add(name.value)">Add</button>
+<div class="displayBox">
+  <h3>Equipment</h3>
+  <ol [class.ol-style]="changeColor">
+      <li *ngFor="let item of equipment">
+          <button [class.gold]='containsObject(item)' [class.active]="item.mass+cargoMass<=maximumAllowedMass && cargoHold.length < maxItems" [disabled]="item.mass+cargoMass>maximumAllowedMass || cargoHold.length >= maxItems" (click)="nearCapacity = addItem(item)">
+              Add to Cargo Hold
+          </button>
+          {{item.name}}, {{item.mass}} kg
+      </li>
+  </ol>
+</div>
+
+<hr>
+
+<div class = "displayBox">
+  <h3>Cargo Hold: {{cargoHold.length}}/{{maxItems}} Spots Filled</h3>
+  <ol>
+      <li *ngFor="let equipment of cargoHold">{{equipment.name}}</li>
+  </ol>
+  <p>Mass in Hold: {{cargoMass}} kg</p>
+  <p [class.nearMaxMass]="nearCapacity">Mass Budget Remaining: {{maximumAllowedMass - cargoMass}} kg</p>
+  <button (click)="cargoHold=[]; cargoMass=0; nearCapacity = false">Empty Hold</button>
+</div>

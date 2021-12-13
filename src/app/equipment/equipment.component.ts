@@ -7,29 +7,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EquipmentComponent implements OnInit {
 
-  equipment: string[] = ['Habitat dome', 'Drones', 'Food containers', 'Oxygen tanks'];
-  equipmentBeingEdited: string = null;
+  equipment: object[] = [
+    {name: 'Duct Tape', mass: 0.5},
+    {name:'Space Camera', mass: 20},
+    {name:'Food', mass: 150},
+    {name:'Oxygen Tanks', mass: 400},
+    {name:'AE-35 Unit', mass: 5},
+    {name:'ISS Supplies', mass: 800}, 
+    {name:'Water', mass: 250},
+    {name:'Satellite', mass: 1200},
+    {name:'R2 Unit', mass: 32}
+  ];
+  equipmentBeingEdited: object = null;
+  cargoHold: object[] = [];
+  cargoMass: number = 0;
+  maximumAllowedMass: number = 2000;
+  maxItems: number = 10;
+  changeColor: boolean = true;
 
   constructor() { }
 
   ngOnInit() {
   }
-  add(newName: string) {
-    if (!this.equipment.includes(newName)) {
-      this.equipment.push(newName);
+
+  addItem(item: object): boolean {
+    this.cargoHold.push(item);
+    this.cargoMass += item['mass'];
+    this.changeColor = false;
+    return this.maximumAllowedMass - this.cargoMass <= 200;
+  }
+
+  containsObject(obj: object): boolean {
+    for (let i = 0; i < this.cargoHold.length; i++) {
+      if (this.cargoHold[i] === obj) {
+        return false;
+      }
     }
+    return true;
   }
-  remove(equi: string) {
-    const index = this.equipment.indexOf(equi);
-    this.equipment.splice(index, 1);
-  }
-  edit(equi: string) {
-    this.equipmentBeingEdited = equi;
-  }
-  save(newName: string, equi: string) {
-    const index = this.equipment.indexOf(equi);
-    this.equipment[index] = newName;
-    this.equipmentBeingEdited = null;
-  } 
 
 }
