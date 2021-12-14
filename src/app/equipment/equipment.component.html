@@ -2,7 +2,9 @@
   <h3>Equipment</h3>
   <ol>
       <li *ngFor="let item of equipment">
-          <button [class.gold]="item.mass+cargoMass<=maximumAllowedMass && cargoHold.length < maxItems" [disabled]="item.mass+cargoMass>maximumAllowedMass || cargoHold.length >= maxItems" (click)="nearCapacity = addItem(item)">
+          <button [class.gold]="item.mass+cargoMass<=maximumAllowedMass && cargoHold.length < maxItems" 
+          [disabled]="item.mass+cargoMass>maximumAllowedMass || cargoHold.length >= maxItems" 
+          (click)="nearCapacity = addItem(item)">
               Add to Cargo Hold
           </button>
           {{item.name}}, {{item.mass}} kg

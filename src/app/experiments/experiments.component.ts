@@ -7,29 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExperimentsComponent implements OnInit {
 
-  experiments: string[] = ['Mars soil sample', 'Plant growth in habitat', 'Human bone density'];
-  experimentBeingEdited: string = null;
+  experiments: string[] = ['Moon soil sample', 'Plant growth in orbit', 'Human bone density changes', 'Water droplet podcast for grades K-5', 'Satellite launch'];  experimentBeingEdited: string = null;
+
+  activeExperiments: string[] = [];
 
   constructor() { }
 
   ngOnInit() {
   }
-  add(newName: string) {
-    if (!this.experiments.includes(newName)) {
-      this.experiments.push(newName);
+  
+  addExperiment(item: string) {
+    if (this.activeExperiments.length < 3) {
+      this.activeExperiments.push(item);
     }
   }
-  remove(experiment: string) {
-    const index = this.experiments.indexOf(experiment);
-    this.experiments.splice(index, 1);
-  }
-  edit(experiment: string) {
-    this.experimentBeingEdited = experiment;
-  }
-  save(newName: string, experiment: string) {
-    const index = this.experiments.indexOf(experiment);
-    this.experiments[index] = newName;
-    this.experimentBeingEdited = null;
-  } 
 
 }

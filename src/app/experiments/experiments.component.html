@@ -1,15 +1,19 @@
-<h3>Experiments</h3>
-<ul>
-  <li *ngFor = 'let experiment of experiments'>
-    <span *ngIf='experimentBeingEdited !== experiment; else elseBlock'>
-      <span (click)="edit(experiment)" class="editable-text">{{experiment}} </span>
-      <button (click)='remove(experiment)'>remove</button>
-    </span>
-    <ng-template #elseBlock>
-      <input #updatedEquipment (keyup.enter)='save(updatedEquipment.value, experiment)' value='{{experiment}}'/>
-      <button (click)='save(updatedEquipment.value, experiment)'>save</button>
-    </ng-template>
-  </li>
-</ul>
-<input #name type="text"/>
-<button (click)="add(name.value)">Add</button>
+<div class="display">
+  <h3>Possible Experiments</h3>
+  <ul>
+    <li *ngFor="let experiment of experiments">
+      <button [class.gold]='activeExperiments.length < 3' 
+      (click)='addExperiment(experiment)'>
+        Add to Active Experiments
+      </button>
+      {{experiment}}</li>
+  </ul>
+</div>
+<hr>
+<div class="display">
+  <h3>Active Experiments: {{activeExperiments.length}}</h3>
+  <ol>
+    <li *ngFor="let experiment of activeExperiments">{{experiment}}</li>
+</ol>
+<button (click)='activeExperiments=[]'>Reset Experiments</button>
+</div>
